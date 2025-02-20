@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Águia Oficial é o melhor site de apostas online do Brasil, oferecendo as melhores cotações do mercado, recargas e saques via PIX automáticos, resultados do Jogo do Bicho, palpites, dicas de apostas e muito mais. Jogue agora com total segurança!">
+    <meta name="keywords" content="aguia oficial online, aguia oficial, aguia oficial apostas, app águia oficial, aguia online">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Águia Oficial">
+    <meta property="og:title" content="Águia Oficial - O Melhor Site de Apostas Online do Brasil">
+    <meta property="og:description" content="Aposte com segurança e facilidade no Águia Oficial. Resultados do Jogo do Bicho, palpites, dicas e muito mais. Recargas e saques via PIX automáticos.">
+<meta property="og:image" content="/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://www.aguiaoficial.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Águia Oficial - O Melhor Site de Apostas Online do Brasil">
+    <meta name="twitter:description" content="Aposte com segurança e facilidade no Águia Oficial. Resultados do Jogo do Bicho, palpites, dicas e muito mais. Recargas e saques via PIX automáticos.">
+    <meta name="twitter:image" content="/logo.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Águia Oficial - O Melhor Site de Apostas Online do Brasil</title>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Menu Hamburguer */
+        .menu-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .menu-icon i {
+            font-size: 24px;
+            color: #333;
+        }
+        /* Ícone do WhatsApp no Canto Inferior Esquerdo */
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: #25D366;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            text-decoration: none; /* Remove sublinhado */
+        }
+        .whatsapp-icon i {
+            font-size: 24px;
+            color: #fff;
+        }
+        /* Menu Deslizante */
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -50%; /* Inicia fora da tela */
+            width: 50%;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease-in-out;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow-y: auto; /* Barra de rolagem apenas no menu */
+        }
+        .menu.active {
+            right: 0; /* Mostra o menu */
+        }
+        .menu-item {
+            margin: 15px 0;
+            text-align: center;
+        }
+        .menu-item a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px; /* Links menores */
+            display: block;
+            margin-top: 10px;
+        }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 15px; /* Bordas arredondadas */
+            cursor: pointer;
+        }
+        .menu-item-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 15px; /* Bordas arredondadas */
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        /* Overlay para fechar o menu ao clicar fora */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+        .overlay.active {
+            display: block;
+        }
+        /* Ocultar elementos após instalação do PWA */
+        .hidden {
+            display: none;
+        }
+        /* Título das Redes Sociais */
+        .social-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+	    margin-top: 15px;
+            color: #333;
+        }
+        /* Ícones Grandes para Redes Sociais */
+        .social-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        #banner-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #banner img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #close-banner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="banner-container">
+    <div id="banner">
+        <img src="banner.jpg" alt="Banner de Boas-Vindas">
+        <button id="close-banner">Fechar</button>
+    </div>
+</div>	
+    <header>
+        <h1>Águia Oficial - O Melhor Site de Apostas Online do Brasil</h1>
+    </header>	
+
+    <iframe 
+        src="https://app.aguiaoficial.com/pr/ZXbjMC6Q" 
+        allow="clipboard-read; clipboard-write"
+        title="app.aguiaoficial.com">
+    </iframe>
+
+    <!-- Ícone de Menu Hamburguer -->
+    <div class="menu-icon" id="menu-icon">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Ícone do WhatsApp -->
+    <a href="https://wa.me/message/JDWRS6FQDK7ZE1" target="_blank" class="whatsapp-icon">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Overlay para Fechar o Menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Menu Deslizante -->
+    <div class="menu" id="menu">
+        <div class="social-title">Promotora Vivi JB</div>
+        <div class="menu-item">
+            <a href="https://www.instagram.com/promotora_vivi_jb?igsh=Yzg5anJlZGNhYmZh" target="_blank">
+                <i class="fab fa-instagram social-icon"></i>
+                Instagram
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="https://youtube.com/@vivijb2.0?si=Ln8eKqoUsdAUrbgz" target="_blank">
+                <i class="fab fa-youtube social-icon"></i>
+                YouTube
+            </a>
+        </div>
+        <div class="menu-item">
+            <a href="https://wa.me/message/JDWRS6FQDK7ZE1" target="_blank">
+                <i class="fab fa-whatsapp social-icon"></i>
+                WhatsApp
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-item-container" onclick="window.location.href='https://chat.whatsapp.com/GUvE2aMQLcFBBfbLL75rXA';">
+                <img src="grupopalpites.png" alt="Grupo do WhatsApp">
+                <a href="https://chat.whatsapp.com/GUvE2aMQLcFBBfbLL75rXA" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Entrar no grupo
+                </a>
+            </div>
+        </div>
+
+
+	    
+<div class="menu-item" id="install-section">
+    <div class="menu-item-container" id="install-trigger">
+        <img src="cassino.png" alt="Instalar App" id="install-image">
+        <a href="#" id="install-pwa">
+            <i class="fas fa-download"></i> Instalar o App
+        </a>
+    </div>
+</div>
+
+
+	    
+    </div>
+
+    <script>
+        // Abrir em tela cheia automaticamente
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframe = document.querySelector('iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+
+        // Alternar Menu
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        menuIcon.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+    let deferredPrompt;
+    const installSection = document.getElementById('install-section');
+    const installTrigger = document.getElementById('install-trigger');
+
+    // Detecta o evento de "beforeinstallprompt" e exibe a seção de instalação
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!window.matchMedia('(display-mode: standalone)').matches) {
+            installSection.style.display = 'block';
+        }
+    });
+
+    // Função para iniciar a instalação do PWA
+    function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Usuário instalou o PWA');
+                    installSection.classList.add('hidden'); // Oculta a seção após instalação
+                } else {
+                    console.log('Instalação rejeitada');
+                }
+                deferredPrompt = null;
+            });
+        }
+    }
+
+    // Aciona a instalação ao clicar na imagem ou no link
+    installTrigger.addEventListener('click', installPWA);
+
+    // Oculta a seção de instalação se o PWA já estiver instalado
+    window.addEventListener('appinstalled', () => {
+        installSection.classList.add('hidden');
+    });
+
+    // Oculta a seção se já estiver no modo standalone (PWA instalado)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        installSection.classList.add('hidden');
+    }
+
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker-vivijb.js')
+        .then((registration) => {
+          console.log('Service Worker registrado com sucesso:', registration);
+        })
+        .catch((error) => {
+          console.error('Falha ao registrar o Service Worker:', error);
+        });
+    });
+  }
+
+
+history.replaceState(null, '', '/');
+
+
+
+   document.addEventListener('DOMContentLoaded', () => {
+        const bannerContainer = document.getElementById('banner-container');
+        const closeBanner = document.getElementById('close-banner');
+
+        // Verifica se é a primeira visita
+        if (!localStorage.getItem('bannerShown')) {
+            setTimeout(() => {
+                bannerContainer.style.display = 'flex';
+            }, 5000);
+
+            // Marca que o banner já foi exibido
+            localStorage.setItem('bannerShown', 'true');
+        }
+
+        // Fecha o banner
+        closeBanner.addEventListener('click', () => {
+            bannerContainer.style.display = 'none';
+        });
+    });
+	    
+</script>
+</body>
+</html>
