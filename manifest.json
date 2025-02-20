@@ -1,7 +1,7 @@
 {
   "name": "Águia Oficial",
   "short_name": "Águia",
-  "start_url": "/ViviJB.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#4ADA38",
   "theme_color": "#4ADA38",
