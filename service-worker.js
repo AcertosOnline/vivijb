@@ -1,10 +1,10 @@
 const CACHE_NAME = 'aguia-oficial-v1';
 const urlsToCache = [
   '/',
-  '/ViviJB.html',
+  '/index.html',
   '/grupopalpites.png',
   '/cassino.png',
-  '/manifest-vivijb.json'
+  '/manifest.json'
 ];
 
 // Instalação do Service Worker
