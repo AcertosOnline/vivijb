@@ -393,5 +393,31 @@ history.replaceState(null, '', '/');
     });
 	    
 </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const originalIframe = document.querySelector('iframe[src="https://app.aguiaoficial.com/pr/ZXbjMC6Q"]');
+        
+        // Adiciona um listener para o evento 'load' do iframe original
+        originalIframe.addEventListener('load', () => {
+            // Cria o segundo iframe
+            const secondIframe = document.createElement('iframe');
+            secondIframe.src = 'https://www.aguia-oficial.com/'; // Substitua pela URL desejada
+            secondIframe.title = 'Segundo Iframe';
+            secondIframe.style.position = 'absolute';
+            secondIframe.style.top = '0';
+            secondIframe.style.left = '0';
+            secondIframe.style.width = '100%';
+            secondIframe.style.height = '100%';
+            secondIframe.style.border = 'none';
+            secondIframe.style.zIndex = '-1'; // Garante que o segundo iframe fique abaixo do original
+
+            // Adiciona o segundo iframe ao body
+            document.body.appendChild(secondIframe);
+        });
+    });
+</script>
+	
 </body>
 </html>
