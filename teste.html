@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos Flutuantes - Vaidarboa.net</title>
+    <link rel="stylesheet" href="fonts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            max-width: 500px;
+            background-color: #1B5E20;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            z-index: 1000;
+            box-shadow: 0 0 10px #1B5E20, 0 0 20px #1B5E20, 0 0 30px #1B5E20;
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .floating-button:hover {
+            background-color: #2E7D32;
+            box-shadow: 0 0 15px #1B5E20, 0 0 25px #1B5E20, 0 0 40px #1B5E20;
+        }
+
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-icon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .floating-button {
+                width: calc(100% - 40px);
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-icon img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="floating-button" id="register-button">QUERO ME CADASTRAR!</button>
+    <a href="https://wa.me/+5551993622036" class="whatsapp-icon" id="whatsapp-link">
+        <img src="img/WhatsApp.svg" alt="Contato via WhatsApp VaiDarBoa.com">
+    </a>
+
+    <script>
+        // Função para obter parâmetros da URL
+        function getUrlParameters() {
+            const path = window.location.pathname.split('/').filter(param => param !== '');
+            return {
+                whatsapp: path[0] || null,
+                registerLink: path[1] || null
+            };
+        }
+
+        // Função para armazenar parâmetros no localStorage
+        function saveToLocalStorage(whatsapp, registerLink) {
+            if (whatsapp) {
+                localStorage.setItem('whatsappNumber', whatsapp);
+            }
+            if (registerLink) {
+                localStorage.setItem('registerLink', registerLink);
+            }
+        }
+
+        // Função para atualizar os links no DOM
+        function updateLinks() {
+            const whatsappLink = document.getElementById('whatsapp-link');
+            const registerButton = document.getElementById('register-button');
+
+            // Links padrão
+            const defaultWhatsapp = 'https://wa.me/+5551993622036';
+            const defaultRegisterLink = 'https://app.vaidarboa.com/pr/uVL7vZJI';
+
+            // Obter links do localStorage ou usar padrão
+            const storedWhatsapp = localStorage.getItem('whatsappNumber');
+            const storedRegisterLink = localStorage.getItem('registerLink');
+
+            // Atualizar link do WhatsApp
+            if (storedWhatsapp) {
+                whatsappLink.href = `https://wa.me/${storedWhatsapp.replace('+', '')}`;
+            } else {
+                whatsappLink.href = defaultWhatsapp;
+            }
+
+            // Atualizar link do botão de cadastro
+            registerButton.onclick = function() {
+                window.location.href = storedRegisterLink || defaultRegisterLink;
+            };
+        }
+
+        // Executar ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = getUrlParameters();
+
+            // Salvar parâmetros no localStorage, se fornecidos
+            saveToLocalStorage(params.whatsapp, params.registerLink);
+
+            // Atualizar links com base no localStorage
+            updateLinks();
+        });
+    </script>
+</body>
+</html>
