@@ -94,27 +94,36 @@
 </head>
 <body>
     <button class="floating-button" id="register-button">QUERO ME CADASTRAR!</button>
-    <a href="https://wa.me/+5551993622036" class="whatsapp-icon" id="whatsapp-link">
+    <a href="https://wa.me/5583993708505" class="whatsapp-icon" id="whatsapp-link">
         <img src="img/WhatsApp.svg" alt="Contato via WhatsApp VaiDarBoa.com">
     </a>
 
     <script>
         // Função para obter parâmetros da URL
         function getUrlParameters() {
-            const path = window.location.pathname.split('/').filter(param => param !== '');
+            // Usar query string para parâmetros (ex.: ?whatsapp=123&promoter=abc)
+            const params = new URLSearchParams(window.location.search);
+            const whatsapp = params.get('whatsapp');
+            const promoterCode = params.get('promoter');
+
+            // Se estiver em ambiente file://, ignorar pathname
+            if (window.location.protocol === 'file:') {
+                return { whatsapp, promoterCode };
+            }
+
+            // Para ambiente hospedado, tentar extrair do pathname
+            const path = window.location.pathname.split('/').filter(param => param !== '' && param !== 'index.html');
             return {
-                whatsapp: path[0] || null,
-                registerLink: path[1] || null
+                whatsapp: whatsapp || (path.length >= 1 ? path[0] : null),
+                promoterCode: promoterCode || (path.length >= 2 ? path[1] : null)
             };
         }
 
         // Função para armazenar parâmetros no localStorage
-        function saveToLocalStorage(whatsapp, registerLink) {
-            if (whatsapp) {
+        function saveToLocalStorage(whatsapp, promoterCode) {
+            if (whatsapp && promoterCode) { // Só armazena se ambos os parâmetros forem fornecidos
                 localStorage.setItem('whatsappNumber', whatsapp);
-            }
-            if (registerLink) {
-                localStorage.setItem('registerLink', registerLink);
+                localStorage.setItem('promoterCode', promoterCode);
             }
         }
 
@@ -123,35 +132,38 @@
             const whatsappLink = document.getElementById('whatsapp-link');
             const registerButton = document.getElementById('register-button');
 
-            // Links padrão
-            const defaultWhatsapp = 'https://wa.me/+5551993622036';
-            const defaultRegisterLink = 'https://app.vaidarboa.com/pr/uVL7vZJI';
+            // Valores padrão
+            const defaultWhatsapp = '5583993708505';
+            const defaultPromoterCode = 'XIx8p5TQ';
 
-            // Obter links do localStorage ou usar padrão
-            const storedWhatsapp = localStorage.getItem('whatsappNumber');
-            const storedRegisterLink = localStorage.getItem('registerLink');
+            // Obter parâmetros da URL
+            const params = getUrlParameters();
+
+            // Determinar valores a serem usados
+            let whatsappNumber, promoterCode;
+
+            // Se ambos os parâmetros estão na URL, usá-los
+            if (params.whatsapp && params.promoterCode) {
+                whatsappNumber = params.whatsapp;
+                promoterCode = params.promoterCode;
+                saveToLocalStorage(whatsappNumber, promoterCode);
+            } else {
+                // Caso contrário, usar valores do localStorage ou padrão
+                whatsappNumber = localStorage.getItem('whatsappNumber') || defaultWhatsapp;
+                promoterCode = localStorage.getItem('promoterCode') || defaultPromoterCode;
+            }
 
             // Atualizar link do WhatsApp
-            if (storedWhatsapp) {
-                whatsappLink.href = `https://wa.me/${storedWhatsapp.replace('+', '')}`;
-            } else {
-                whatsappLink.href = defaultWhatsapp;
-            }
+            whatsappLink.href = `https://wa.me/${whatsappNumber}`;
 
             // Atualizar link do botão de cadastro
             registerButton.onclick = function() {
-                window.location.href = storedRegisterLink || defaultRegisterLink;
+                window.location.href = `https://app.77xbrasil.com.br/pr/${promoterCode}`;
             };
         }
 
         // Executar ao carregar a página
         document.addEventListener('DOMContentLoaded', function() {
-            const params = getUrlParameters();
-
-            // Salvar parâmetros no localStorage, se fornecidos
-            saveToLocalStorage(params.whatsapp, params.registerLink);
-
-            // Atualizar links com base no localStorage
             updateLinks();
         });
     </script>
